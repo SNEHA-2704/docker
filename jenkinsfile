@@ -1,7 +1,8 @@
 pipeline {
     agent any
 
-    stage('clone Repository') {
+    stages {
+        stage('Clone Repository') {
             steps {
                 git branch: 'main', url: 'https://github.com/SNEHA-2704/docker.git'
             }
@@ -9,13 +10,14 @@ pipeline {
         
         stage('Build Docker Image') {
             steps {
-               bat 'docker build -t web-image-app .'
+                bat 'docker build -t web-image-app .'
             }
         }
+        
         stage('Run Docker Container') {
             steps {
                 bat 'docker run -d -p 8090:80 web-image-app'
             }
         }
-    
+    }
 }
